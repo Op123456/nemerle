@@ -5,6 +5,14 @@ class Context1 : Context
 {
   public sealed override Bind[T](name : string) : option[T]
   {
+    public XSymbol2 : Symbol2 = null;
+
+    match (XSymbol2)
+    {
+      | _x is T => ()
+      | _ => ()
+    }
+    
     match (Bind2(name))
     {
       | [one] =>
