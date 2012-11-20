@@ -1155,10 +1155,10 @@ namespace Nemerle.Compiler
           def name = GetIdName(expr, id);
           
           if (name == null)
-            append($"Label_$id:\n");
+            append($"Label_$id:" + "\n");
           else
-            append($"$name /* id: $id */:\n;");
-            
+            append($"$name /* id: $id */:" + "\n");
+
           recurse_and_indent(body);
 
         | TT.TExpr.MacroEnvelope(_orig, mac, body, _) =>
@@ -1175,9 +1175,9 @@ namespace Nemerle.Compiler
           def name = GetIdName(expr, id);
           
           if (name == null)
-            append($"goto Label_$id /* try id: $t */;");
+            append($"goto Label_$id /* try id: $t */");
           else
-            append($"goto $name /* id: $id try id: $t */;");
+            append($"goto $name /* id: $id try id: $t */");
 
         // local definitions
         | TT.TExpr.DefValIn (name /* LocalValue */, val /* PExpr */, body /* PExpr */) =>
@@ -1347,6 +1347,7 @@ namespace Nemerle.Compiler
         | TT.TExpr.Error =>
           append ("(ERROR)")
 
+        | TT.TExpr.DebugInfo (null, _) => ()
         | TT.TExpr.DebugInfo (e, _) =>
           append ("DEBUG_INFO(");
           recurse(e);
